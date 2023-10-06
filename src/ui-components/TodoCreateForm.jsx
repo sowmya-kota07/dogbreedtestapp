@@ -18,21 +18,15 @@ export default function TodoCreateForm(props) {
   } = props;
   const initialValues = {
     name: "",
-    description: "",
   };
   const [name, setName] = React.useState(initialValues.name);
-  const [description, setDescription] = React.useState(
-    initialValues.description
-  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setName(initialValues.name);
-    setDescription(initialValues.description);
     setErrors({});
   };
   const validations = {
     name: [{ type: "Required" }],
-    description: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -61,7 +55,6 @@ export default function TodoCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           name,
-          description,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -125,7 +118,6 @@ export default function TodoCreateForm(props) {
           if (onChange) {
             const modelFields = {
               name: value,
-              description,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -139,31 +131,6 @@ export default function TodoCreateForm(props) {
         errorMessage={errors.name?.errorMessage}
         hasError={errors.name?.hasError}
         {...getOverrideProps(overrides, "name")}
-      ></TextField>
-      <TextField
-        label="Description"
-        isRequired={false}
-        isReadOnly={false}
-        value={description}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              name,
-              description: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.description ?? value;
-          }
-          if (errors.description?.hasError) {
-            runValidationTasks("description", value);
-          }
-          setDescription(value);
-        }}
-        onBlur={() => runValidationTasks("description", description)}
-        errorMessage={errors.description?.errorMessage}
-        hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
       ></TextField>
       <Flex
         justifyContent="space-between"
