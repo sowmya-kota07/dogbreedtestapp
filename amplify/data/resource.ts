@@ -68,7 +68,8 @@ export class AmplifyCustomData extends Construct {
       allowedMethods: [HttpMethods.GET],
       allowedHeaders: ['*'],
       allowedOrigins: ['https://localhost.console.aws.amazon.com:3000',
-        'https://*.console.aws.amazon.com/amplify/home']
+        'https://*.console.aws.amazon.com/amplify/home', 
+      'https://532897458220-amplify-console.us-east-1.console.aws-dev.amazon.com/amplify/home']
     });
 
   }
