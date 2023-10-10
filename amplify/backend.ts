@@ -7,7 +7,7 @@ try {
     auth
   });
 
-  const stack = backend.getOrCreateStack('AmplifyCMS');
+  const stack = backend.getOrCreateStack('amplify-data');
   const backendId = stack.node.getContext('backend-id');
   const branchName = stack.node.tryGetContext('branch-name') || 'sandbox';
 

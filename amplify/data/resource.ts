@@ -72,7 +72,6 @@ export class AmplifyCustomData extends Construct {
         'https://*.console.aws.amazon.com/amplify/home',
         'https://532897458220-amplify-console.us-east-1.console.aws-dev.amazon.com/amplify/home']
     });
-
   }
 }
 
