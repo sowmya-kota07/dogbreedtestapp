@@ -43,7 +43,6 @@ export class AmplifyCustomData extends Construct {
       actions: ['appsync:GraphQL']
     }));
     cmsManageRole.attachInlinePolicy(inlineApiPolicy);
-    const roleArn = `arn:aws:iam::${account}:role/${roleName}`;
 
     const api = new AmplifyGraphqlApi(scope, 'AmplifyGraphqlApi', {
       definition: {
@@ -51,7 +50,7 @@ export class AmplifyCustomData extends Construct {
         functionSlots: [],
       },
       authorizationModes: {
-        adminRoles: [Role.fromRoleArn(scope, 'AmplifyCMSRole', roleArn)],
+        adminRoles: [Role.fromRoleArn(scope, 'AmplifyCMSRole', cmsManageRole.roleArn)],
         defaultAuthorizationMode: 'AWS_IAM',
         iamConfig: {
           authenticatedUserRole: authRole,
