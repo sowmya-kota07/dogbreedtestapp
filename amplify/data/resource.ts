@@ -36,13 +36,6 @@ export class AmplifyCustomData extends Construct {
       roleName,
       assumedBy: principal,
     });
-    const inlineApiPolicy = new Policy(scope, 'AmplifyCMSManageRolePolicy');
-    inlineApiPolicy.addStatements(new PolicyStatement({
-      effect: Effect.ALLOW,
-      resources: [`arn:aws:appsync:${region}:*:apis/*`],
-      actions: ['appsync:GraphQL']
-    }));
-    cmsManageRole.attachInlinePolicy(inlineApiPolicy);
 
     const api = new AmplifyGraphqlApi(scope, 'AmplifyGraphqlApi', {
       definition: {
@@ -62,13 +55,22 @@ export class AmplifyCustomData extends Construct {
         }
       }
     })
+
+    const inlineApiPolicy = new Policy(scope, 'AmplifyCMSManageRolePolicy');
+    inlineApiPolicy.addStatements(new PolicyStatement({
+      effect: Effect.ALLOW,
+      resources: [api.resources.graphqlApi.arn],
+      actions: ['appsync:GraphQL']
+    }));
+    cmsManageRole.attachInlinePolicy(inlineApiPolicy);
+
     const codegenAssetsBucket = api.node.findChild('AmplifyCodegenAssets').node.findChild('AmplifyCodegenAssetsBucket') as Bucket;
     codegenAssetsBucket.addCorsRule({
       allowedMethods: [HttpMethods.GET],
       allowedHeaders: ['*'],
       allowedOrigins: ['https://localhost.console.aws.amazon.com:3000',
-        'https://*.console.aws.amazon.com/amplify/home', 
-      'https://532897458220-amplify-console.us-east-1.console.aws-dev.amazon.com/amplify/home']
+        'https://*.console.aws.amazon.com/amplify/home',
+        'https://532897458220-amplify-console.us-east-1.console.aws-dev.amazon.com/amplify/home']
     });
 
   }
