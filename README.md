@@ -1,26 +1,3 @@
-# Creating a service role
-We would need to create an IAM role with the new managed policy `AmplifyBackendDeployFullAccess`
-
-Make sure the trust policy has gamma amplify service principal attached:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Service": [
-                    "amplify.amazonaws.com",
-                    "gamma.amplify.amazonaws.com"
-                ]
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
-}
-```
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
