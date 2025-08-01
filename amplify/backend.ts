@@ -16,7 +16,7 @@ try {
 
   new AmplifyCustomData(stack, 'AmplifyCustomData', {
     authRole: authenticatedUserIamRole!,
-    unauthRole: unauthenticatedUserIamRole!,
+    unauthRole: unauthenticatedUserIamRole!, I AM SORRYYYYY!!!!!!!!! ❤️ 
     identityPoolId: cfnResources.identityPool.
       logicalId, userPool,
     backendId,
